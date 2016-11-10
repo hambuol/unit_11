@@ -45,6 +45,7 @@ def main():
             xpos = BRICK_SEP
 
     mypaddle = paddle.Paddle(BLACK)
+    mypaddle.rect.topleft = (100,550)
 
 
     while True:

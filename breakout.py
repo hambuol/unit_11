@@ -2,6 +2,8 @@ import pygame,sys
 from pygame.locals import *
 import brick
 import paddle
+import ball
+import random
 
 def main():
     pygame.init()
@@ -30,6 +32,7 @@ def main():
     pygame.display.set_caption("Breakout")
     mainsurface.fill(WHITE)
     bricksGroup = pygame.sprite.Group()
+    ballGroup = pygame.sprite.Group()
     xpos = BRICK_SEP
     ypos = 100
     def brik(xpos, ypos):
@@ -46,7 +49,9 @@ def main():
 
     mypaddle = paddle.Paddle(BLACK)
     mypaddle.rect.topleft = (100,550)
-
+    myball = ball.Ball(mainsurface, BLACK)
+    myball.rect.topleft = (100 ,400)
+    ballGroup.add(myball)
 
     while True:
         for event in pygame.event.get():
@@ -60,7 +65,9 @@ def main():
         brik(xpos,ypos)
         mypaddle.rect.topleft = (ppos[0], 550)
         bricksGroup.update()
+        ballGroup.update()
         mainsurface.blit(mypaddle.image, mypaddle.rect)
+        mainsurface.blit(myball.image, myball.rect)
         pygame.display.update()
 main()
 

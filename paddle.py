@@ -10,5 +10,3 @@ class Paddle(pygame.sprite.Sprite):
         self.image = pygame.Surface((self.WIDTH, self.HEIGHT))
         self.rect = self.image.get_rect()
 
-    def move(self):
-        pass

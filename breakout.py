@@ -12,7 +12,7 @@ def main():
     BRICKS_PER_ROW = 10
     BRICK_SEP = 4 #The space between each brick
     BRICK_Y_OFFSET = 70
-    BRICK_WIDTH =  (APPLICATION_WIDTH - (BRICKS_PER_ROW -1) * BRICK_SEP) / BRICKS_PER_ROW
+    BRICK_WIDTH =  (APPLICATION_WIDTH - (BRICKS_PER_ROW + 1) * BRICK_SEP) / BRICKS_PER_ROW
     NUM_TURNS = 3
     NUM_ROWS = 2
 
@@ -30,19 +30,19 @@ def main():
     pygame.display.set_caption("Breakout")
     mainsurface.fill(WHITE)
     bricksGroup = pygame.sprite.Group()
-
     xpos = BRICK_SEP
     ypos = 100
-    for color in colors:
-        for q in range(NUM_ROWS):
-            for x in range(BRICKS_PER_ROW):
-                mybrick = brick.Brick(BRICK_WIDTH, color)
-                bricksGroup.add(mybrick)
-                mybrick.rect.topleft = (xpos, ypos)
-                mainsurface.blit(mybrick.image,mybrick.rect)
-                xpos += BRICK_WIDTH + BRICK_SEP
-            ypos += BRICK_SEP * 3
-            xpos = BRICK_SEP
+    def brik(xpos, ypos):
+        for color in colors:
+            for q in range(NUM_ROWS):
+                for x in range(BRICKS_PER_ROW):
+                    mybrick = brick.Brick(BRICK_WIDTH, color)
+                    bricksGroup.add(mybrick)
+                    mybrick.rect.topleft = (xpos, ypos)
+                    mainsurface.blit(mybrick.image,mybrick.rect)
+                    xpos += BRICK_WIDTH + BRICK_SEP
+                ypos += BRICK_SEP * 3
+                xpos = BRICK_SEP
 
     mypaddle = paddle.Paddle(BLACK)
     mypaddle.rect.topleft = (100,550)
@@ -53,9 +53,14 @@ def main():
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
-        mainsurface.blit(mypaddle.image, mypaddle.rect)
+        clock = pygame.time.Clock()
+        clock.tick(300)
+        mainsurface.fill(WHITE)
+        ppos = pygame.mouse.get_pos()
+        brik(xpos,ypos)
+        mypaddle.rect.topleft = (ppos[0], 550)
         bricksGroup.update()
+        mainsurface.blit(mypaddle.image, mypaddle.rect)
         pygame.display.update()
-
 main()
 

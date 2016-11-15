@@ -19,3 +19,13 @@ class Ball(pygame.sprite.Sprite):
             self.vx = -self.vx
         if self.rect.bottom > self.screen.get_height() or self.rect.top < 0:
             self.vy = -self.vy
+
+    def collide(self, spriteGroup):
+        if pygame.sprite.spritecollide(self, spriteGroup, True):
+            self.vy = -self.vy
+            self.vx = -self.vx
+
+    def collide2(self, spriteGroup):
+        if pygame.sprite.spritecollide(self, spriteGroup, False):
+            self.vy = -self.vy
+            self.vx = -self.vx

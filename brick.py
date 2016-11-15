@@ -16,9 +16,8 @@ class Brick(pygame.sprite.Sprite):
         pass
 
 
-    def collide(self, spriteGroup):
-        if pygame.sprite.spritecollide(self, spriteGroup, True):
-            pass
+
+
 
 
 

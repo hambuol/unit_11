@@ -32,26 +32,25 @@ def main():
     pygame.display.set_caption("Breakout")
     mainsurface.fill(WHITE)
     bricksGroup = pygame.sprite.Group()
-    ballGroup = pygame.sprite.Group()
+    padGroup = pygame.sprite.Group()
     xpos = BRICK_SEP
     ypos = 100
-    def brik(xpos, ypos):
-        for color in colors:
+    for color in colors:
             for q in range(NUM_ROWS):
                 for x in range(BRICKS_PER_ROW):
                     mybrick = brick.Brick(BRICK_WIDTH, color)
-                    bricksGroup.add(mybrick)
                     mybrick.rect.topleft = (xpos, ypos)
+                    bricksGroup.add(mybrick)
                     mainsurface.blit(mybrick.image,mybrick.rect)
                     xpos += BRICK_WIDTH + BRICK_SEP
                 ypos += BRICK_SEP * 3
                 xpos = BRICK_SEP
 
     mypaddle = paddle.Paddle(BLACK)
+    padGroup.add(mypaddle)
     mypaddle.rect.topleft = (100,550)
     myball = ball.Ball(mainsurface, BLACK)
     myball.rect.topleft = (100 ,400)
-    ballGroup.add(myball)
 
     while True:
         for event in pygame.event.get():
@@ -59,13 +58,24 @@ def main():
                 pygame.quit()
                 sys.exit()
         clock = pygame.time.Clock()
-        clock.tick(300)
+        clock.tick(60)
         mainsurface.fill(WHITE)
         ppos = pygame.mouse.get_pos()
-        brik(xpos,ypos)
+
+        if myball.collide(bricksGroup):
+            bricksGroup.remove(mybrick)
+
+        for apad in padGroup:
+            myball.collide2(padGroup)
+            padGroup.update(apad)
+
+
         mypaddle.rect.topleft = (ppos[0], 550)
-        bricksGroup.update()
-        ballGroup.update()
+
+        padGroup.update()
+        myball.update()
+        for mybrick in bricksGroup:
+            mainsurface.blit(mybrick.image, mybrick.rect)
         mainsurface.blit(mypaddle.image, mypaddle.rect)
         mainsurface.blit(myball.image, myball.rect)
         pygame.display.update()

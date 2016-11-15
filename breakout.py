@@ -27,7 +27,7 @@ def main():
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
     colors = [RED, ORANGE, YELLOW, GREEN, CYAN,]
-
+    font = pygame.font.Font(None, 36)
     mainsurface = pygame.display.set_mode((APPLICATION_WIDTH, APPLICATION_HEIGHT), 0, 32)
     pygame.display.set_caption("Breakout")
     mainsurface.fill(WHITE)
@@ -63,7 +63,7 @@ def main():
         ppos = pygame.mouse.get_pos()
 
         if myball.collide(bricksGroup):
-            bricksGroup.remove(mybrick)
+            bricksGroup.remove()
 
         for apad in padGroup:
             myball.collide2(padGroup)
@@ -76,6 +76,10 @@ def main():
         myball.update()
         for mybrick in bricksGroup:
             mainsurface.blit(mybrick.image, mybrick.rect)
+        if myball.rect.topleft[1] == 580:
+            pygame.quit()
+            sys.exit()
+
         mainsurface.blit(mypaddle.image, mypaddle.rect)
         mainsurface.blit(myball.image, myball.rect)
         pygame.display.update()

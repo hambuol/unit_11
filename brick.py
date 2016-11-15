@@ -12,8 +12,7 @@ class Brick(pygame.sprite.Sprite):
         self.image.fill(color)
         pygame.init()
 
-    def update(self):
-        pass
+
 
 
 

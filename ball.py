@@ -8,24 +8,25 @@ class Ball(pygame.sprite.Sprite):
         self.image = pygame.Surface((7,7))
         self.image.fill(color)
         self.screen = screen
-        self.vx = random.randint(3, 7)
-        self.vy = random.randint(3, 7)
+        self.speedx = 6
+        self.speedy = 4
         self.rect = self.image.get_rect()
 
     def update(self):
-        self.rect.left += self.vx
-        self.rect.top += self.vy
+        self.rect.left += self.speedx
+        self.rect.top += self.speedy
         if self.rect.right > self.screen.get_width() or self.rect.left < 0:
-            self.vx = -self.vx
+            self.speedx = -self.speedx
         if self.rect.bottom > self.screen.get_height() or self.rect.top < 0:
-            self.vy = -self.vy
+            self.speedy = -self.speedy
 
     def collide(self, spriteGroup):
         if pygame.sprite.spritecollide(self, spriteGroup, True):
-            self.vy = -self.vy
-            self.vx = -self.vx
+            self.speedy = -self.speedy
+            self.speedx = -self.speedx
 
     def collide2(self, spriteGroup):
         if pygame.sprite.spritecollide(self, spriteGroup, False):
-            self.vy = -self.vy
-            self.vx = -self.vx
+            self.speedy = -self.speedy
+            self.speedx = -self.speedx
+

@@ -74,7 +74,7 @@ def main():
         for apad in padGroup:
             myball.collide2(padGroup)
             padGroup.update(apad)
-
+        print(ppos)
         mypaddle.rect.topleft = (ppos[0], 550)
 
         padGroup.update()

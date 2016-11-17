@@ -16,7 +16,7 @@ def main():
     BRICK_Y_OFFSET = 70
     BRICK_WIDTH =  (APPLICATION_WIDTH - (BRICKS_PER_ROW + 1) * BRICK_SEP) / BRICKS_PER_ROW
     NUM_TURNS = 3
-    num_rows = 2
+    num_rows = 1
 
     #Sets up the colors
     RED = (255, 0, 0)
@@ -67,14 +67,14 @@ def main():
             bricksGroup.remove()
 
         # attempt at adding row and readding briks to screnn to give effect of levels to game
-        if bricksGroup == 0:
+        if len(bricksGroup) == 0:
             num_rows += 1
             brik(xpos,ypos)
 
         for apad in padGroup:
             myball.collide2(padGroup)
             padGroup.update(apad)
-        print(ppos)
+
         mypaddle.rect.topleft = (ppos[0], 550)
 
         padGroup.update()
@@ -82,6 +82,13 @@ def main():
         for mybrick in bricksGroup:
             mainsurface.blit(mybrick.image, mybrick.rect)
 
+        if myball.rect.bottom > mainsurface.get_height():
+            NUM_TURNS -= 1
+            myball.rect.topleft = (125, 400)
+
+        if NUM_TURNS == 0:
+            pygame.quit()
+            sys.exit()
 
         mainsurface.blit(mypaddle.image, mypaddle.rect)
         mainsurface.blit(myball.image, myball.rect)

@@ -57,7 +57,9 @@ def main():
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
-
+        # want to mak it so if mouse is clicked, stat screen dissapears and game begins
+        if pygame.mouse.get_pressed()[0]:
+          print("HI")
 
         clock = pygame.time.Clock()
         clock.tick(50)
@@ -66,8 +68,9 @@ def main():
         if myball.collide(bricksGroup):
             bricksGroup.remove()
 
-        # attempt at adding row and readding briks to screnn to give effect of levels to game
+        # adds a row to bricks for "next level"
         if len(bricksGroup) == 0:
+            myball.rect.topleft = (125, 400)
             num_rows += 1
             brik(xpos,ypos)
 

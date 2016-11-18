@@ -33,7 +33,7 @@ def main():
     bricksGroup = pygame.sprite.Group()
     padGroup = pygame.sprite.Group()
     xpos = BRICK_SEP
-    ypos = 100
+    ypos = BRICK_Y_OFFSET
     def brik(xpos, ypos):
         for color in colors:
                 for q in range(num_rows):
@@ -51,23 +51,42 @@ def main():
     mypaddle.rect.topleft = (100,550)
     myball = ball.Ball(mainsurface, BLACK)
     myball.rect.topleft = (125 ,400)
-
+    end_it = False
+    # this loops adds a start screen and begins game when clicked
+    # code retreved from http://stackoverflow.com/questions/20356307/how-would-i-add-a-start-screen-to-this-pygame-python-code
+    while (end_it == False):
+        mainsurface.fill(BLACK)
+        myfont = pygame.font.SysFont("Britannic Bold", 40)
+        nlabel = myfont.render("click to start", 1, (255, 0, 0))
+        for event in pygame.event.get():
+            if event.type == MOUSEBUTTONDOWN:
+                end_it = True
+        mainsurface.blit(nlabel, (200, 200))
+        pygame.display.flip()
     while True:
         for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
-        # want to mak it so if mouse is clicked, stat screen dissapears and game begins
-        if pygame.mouse.get_pressed()[0]:
-          print("HI")
+
 
         clock = pygame.time.Clock()
         clock.tick(50)
         mainsurface.fill(WHITE)
         ppos = pygame.mouse.get_pos()
+        real = []
+        score = len(real)
+        scorefont = pygame.font.SysFont("Britannic Bold", 40)
+        scorelable = scorefont.render(str(score), 1, RED)
+        mainsurface.blit(scorelable, (10, 10))
+
         if myball.collide(bricksGroup):
             bricksGroup.remove()
+            real.append(1)
 
+
+
+        print(score)
         # adds a row to bricks for "next level"
         if len(bricksGroup) == 0:
             myball.rect.topleft = (125, 400)

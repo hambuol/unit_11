@@ -23,8 +23,7 @@ class Ball(pygame.sprite.Sprite):
             self.speedy = -self.speedy
         if self.rect.bottom > self.screen.get_height():
             pass
-            #pygame.quit()
-            #sys.exit()
+
 
 
 

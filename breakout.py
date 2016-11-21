@@ -69,29 +69,21 @@ def main():
                 pygame.quit()
                 sys.exit()
 
-
+        # framerate
         clock = pygame.time.Clock()
         clock.tick(50)
         mainsurface.fill(WHITE)
         ppos = pygame.mouse.get_pos()
 
+        # scoreboard
         scorefont = pygame.font.SysFont("Britannic Bold", 40)
         scorelable = scorefont.render("Score {0}".format(score), 1, RED)
         mainsurface.blit(scorelable, (10, 10))
+        score = 0
 
-
+        # removes brick from brick group/screen if ball hits brick
         if myball.collide(bricksGroup):
             bricksGroup.remove()
-
-
-
-
-
-
-
-
-
-
 
         # adds a row to bricks for "next level"
         if len(bricksGroup) == 0:
@@ -104,8 +96,10 @@ def main():
             padGroup.update(apad)
 
         mypaddle.rect.topleft = (ppos[0], 550)
-        if ppos[0] >= 300:
-            print("hi")
+
+        # makes is so the paddle stays o the screen(a little buggy)
+        if ppos[0] >= 340:
+            mypaddle.rect.topleft = (340, 550)
 
         padGroup.update()
         myball.update()
@@ -124,4 +118,3 @@ def main():
         mainsurface.blit(myball.image, myball.rect)
         pygame.display.update()
 main()
-

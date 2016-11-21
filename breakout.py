@@ -51,7 +51,7 @@ def main():
     myball = ball.Ball(mainsurface, BLACK)
     myball.rect.topleft = (125 ,400)
     end_it = False
-    score = 0
+    level = 1
     # this loops adds a start screen and begins game when clicked
     # code retreved from http://stackoverflow.com/questions/20356307/how-would-i-add-a-start-screen-to-this-pygame-python-code
     while (end_it == False):
@@ -77,9 +77,13 @@ def main():
 
         # scoreboard
         scorefont = pygame.font.SysFont("Britannic Bold", 40)
-        scorelable = scorefont.render("Score {0}".format(score), 1, RED)
+        scorelable = scorefont.render("Level: {0}".format(level), 1, BLACK)
         mainsurface.blit(scorelable, (10, 10))
-        score = 0
+
+        # lives counter
+        liveslable = scorefont.render("Lives: {0}" .format(NUM_TURNS), 1, BLACK)
+        mainsurface.blit(liveslable, (290, 10))
+
 
         # removes brick from brick group/screen if ball hits brick
         if myball.collide(bricksGroup):
@@ -88,7 +92,11 @@ def main():
         # adds a row to bricks for "next level"
         if len(bricksGroup) == 0:
             myball.rect.topleft = (125, 400)
+            myball.speedx = 6
+            myball.speedy = 4
             num_rows += 1
+            level += 1
+            NUM_TURNS += 3
             brik(xpos,ypos)
 
         for apad in padGroup:
@@ -105,11 +113,13 @@ def main():
         myball.update()
         for mybrick in bricksGroup:
             mainsurface.blit(mybrick.image, mybrick.rect)
-
+        # takes away a turn if the ball hits the bottom of the screen, and resets the ball position and speed
         if myball.rect.bottom > mainsurface.get_height():
             NUM_TURNS -= 1
             myball.rect.topleft = (125, 400)
-
+            myball.speedx = 6
+            myball.speedy = 4
+        # quits the game if you ran out of lives
         if NUM_TURNS == 0:
             pygame.quit()
             sys.exit()

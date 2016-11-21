@@ -30,7 +30,7 @@ class Ball(pygame.sprite.Sprite):
     def collide(self, spriteGroup):
         if pygame.sprite.spritecollide(self, spriteGroup, True):
             self.speedy = -self.speedy - self.vy
-            #self.speedx = -self.speedx - self.vx
+
 
 
 

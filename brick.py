@@ -1,7 +1,9 @@
+# imports pygame moduel
 import pygame
 
-class Brick(pygame.sprite.Sprite):
 
+class Brick(pygame.sprite.Sprite):
+    """class sets whats needed for the bricks"""
 
     def __init__(self, width, color):
         super().__init__()
@@ -11,12 +13,3 @@ class Brick(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.image.fill(color)
         pygame.init()
-
-
-
-
-
-
-
-
-

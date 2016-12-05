@@ -1,3 +1,7 @@
+# written by oliver hamburger
+# program is a game of breakout
+# last modified 12/5/16
+
 # import's nedded moduels and classes
 import pygame,sys
 from pygame.locals import *
